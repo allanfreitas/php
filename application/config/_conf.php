@@ -26,14 +26,16 @@
 	*	Variables global application
 	* ---------------------------------------------------------------
 	*/
-	$conf['base_url'] 		= "http://localhost/igrape";
-	$conf['index_page']		= "run/index";
-	$conf['language']		= "english";
-	$conf['charset'] 		= "UTF-8";
-	$conf['lang'] 			= "pt-BR";
-	$conf['time_now']		= date("H:i:s");
-	$conf['date_now']		= date("Y-m-d");
-	$conf['d_all_now']		= $conf['date_now']." ".$conf['time_now'];
+	$conf['base_url'] 			= "http://localhost/igrape";
+	$conf['index_controllers']	= "run";
+	$conf['index_function']		= "index";
+	$conf['index_page']			= $conf['index_controllers'].DS.$conf['index_function'];
+	$conf['language']			= "english";
+	$conf['lang'] 				= "en";
+	$conf['charset'] 			= "UTF-8";
+	$conf['time_now']			= date("H:i:s");
+	$conf['date_now']			= date("Y-m-d");
+	$conf['d_all_now']			= $conf['date_now']." ".$conf['time_now'];
 	
 	/**
 	* ---------------------------------------------------------------

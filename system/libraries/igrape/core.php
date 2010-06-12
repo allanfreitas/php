@@ -48,6 +48,7 @@ if($conf['ig_functions']) include COREROOT."functions".EXT;
 if(file_exists(APPBASE."controllers".DS."app".EXT)) include APPBASE."controllers".DS."app".EXT;
 
 class iGrape {
+	
 	function index()
 	{
 		exit("This is the mech index");
@@ -95,14 +96,19 @@ class iGrape {
 
 	function iGrape($cmd)
 	{
+		global $conf;
+		if(is_array($conf)) $this->_conf = $conf;
+		
 		$args = explode('/', $cmd);
+		
+		$this->_conf = $conf;
+		
 		if(empty($args[0]))
 		{
 			if(!defined('INDEX'))
 				define('INDEX', $conf['index_page']);
 			
 			$args = explode('/', INDEX);
-		//}elseif($args[0] == LOGOUT_TRIGGER)
 		}elseif($args[0] == LOGOUT_TRIGGER)
 		{
 			unset($this);
@@ -112,7 +118,7 @@ class iGrape {
 		
 		// Instantiate the model
 		$_model = iGrape::loadModel($args[0]);
-		$_model->model = empty($args[1]) ? 'index' : $args[1];
+		$_model->model = empty($args[1]) ? $conf['index_function'] : $args[1];
 		
 		if($_model->model[0] == "_" || is_callable(array('Model', $_model->model)))
 		{
@@ -121,7 +127,7 @@ class iGrape {
 		
 		// Instantiate the controller
 		$_controller = iGrape::loadController($args[0]);
-		$_controller->action = empty($args[1]) ? 'index' : $args[1];
+		$_controller->action = empty($args[1]) ? $conf['index_function'] : $args[1];
 		
 		// set up the parameters
 		for($i = 2; $i < count($args); $i++)
