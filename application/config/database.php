@@ -22,10 +22,10 @@
  */
 
 	/*$ORM->driver 	= 'mysql';
-	$ORM->host 		= '64.13.248.63';
-	$ORM->name 		= 'papolog';
-	$ORM->user 		= 'master';
-	$ORM->pass 		= 'dbMppl0809';
+	$ORM->host 		= 'localhost';
+	$ORM->name 		= '';
+	$ORM->user 		= 'root';
+	$ORM->pass 		= '';
 	$ORM->encode 	= 'utf8';*/
 
 $db['developer']['driver'] 		= 'mysql';
