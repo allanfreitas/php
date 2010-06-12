@@ -33,15 +33,18 @@
 	$conf['language']			= "english";
 	$conf['lang'] 				= "en";
 	$conf['charset'] 			= "UTF-8";
+	$conf['time_limit']			= 0; # The maximum execution time, in seconds. If set to zero, no time limit is imposed.
 	$conf['time_now']			= date("H:i:s");
 	$conf['date_now']			= date("Y-m-d");
 	$conf['d_all_now']			= $conf['date_now']." ".$conf['time_now'];
+	$conf['user_abort']			= TRUE;
 	
 	/**
 	* ---------------------------------------------------------------
 	*	Functions CLEAN
 	* ---------------------------------------------------------------
 	*/
+	$conf['ig_developer'] 	= TRUE;
 	$conf['ig_functions'] 	= TRUE;
 	
 	include CONFBASE."database".EXT;

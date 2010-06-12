@@ -40,6 +40,14 @@ include CONFBASE.'_conf'.EXT;
 
 if(!isset($conf)) exit("<pre>You must configure the file _conf".EXT);
 
+if($conf['ig_developer'])
+{
+	error_reporting(E_ALL);
+	ini_set('display_errors',true);
+}
+if($conf['time_limit']) set_time_limit(0);
+if($conf['user_abort']) ignore_user_abort();
+
 if(file_exists(COREROOT.'model'.EXT)) include COREROOT.'model'.EXT;
 if(file_exists(COREROOT.'controller'.EXT)) include COREROOT.'controller'.EXT;
 
