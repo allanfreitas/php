@@ -1,21 +1,3 @@
-<?=table(
-	array(
-		"test"=>
-		array(
-			1,
-			2,
-			3,
-			7
-		),
-		"la"=>
-		array(
-			4,
-			5,
-			6
-		)
-	),
-	array("id"=>"iGTable","class"=>"mytable")
-);?>
 <div class="title">
 	<div class="ok_tt left"></div>
 	<div class="typer">

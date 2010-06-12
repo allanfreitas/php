@@ -57,6 +57,26 @@ function debug($array, $type){
 /**
  * Inserts an table tab (<table></table>)
 **/
+/*
+table(
+	array(
+		"test"=>
+		array(
+			1,
+			2,
+			3,
+			7
+		),
+		"la"=>
+		array(
+			4,
+			5,
+			6
+		)
+	),
+	array("id"=>"iGTable","class"=>"mytable")
+);
+*/
 function table($array,$style=NULL){
 	if($style){
 		foreach($style AS $attr=>$value){
