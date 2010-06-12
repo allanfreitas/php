@@ -4,9 +4,9 @@
  *
  * @category	iGrape
  * @author		iGrape Dev Team
- * @copyright	Copyright (c) 2007-2010 Chierry Inc. (http://www.igrape.org)
- * @license		/LICENSE.txt New BSD License
- * @version		$Id: common.php 10096 2010-03-08 14:05:09Z $
+ * @copyright	Copyright (c) 2007-2010 iGrape Framework. (http://www.igrape.org)
+ * @license		LICENSE New BSD License
+ * @version		0.1
  *
  * ---------------------------------------------------------------
  *
@@ -26,8 +26,8 @@ function __autoload($class) {
 	}else
 	{
 		$dir = dir(LIB);
-		while (false !== ($entry = $dir->read())) {
-			if(($entry != "." && $entry != ".." && $entry != "igrape") && $entry == $class)
+		while (false !== ($entry=$dir->read())) {
+			if(($entry!="." && $entry!=".." && $entry!="igrape") && $entry == $class)
 			{
 				require LIB.$class.DS.$class.EXT;
 			}

@@ -4,9 +4,9 @@
  *
  * @category	iGrape
  * @author		iGrape Dev Team
- * @copyright	Copyright (c) 2007-2010 Chierry Inc. (http://www.igrape.org)
- * @license		/LICENSE.txt New BSD License
- * @version		$Id: core.php 10096 2010-03-08 14:05:09Z $
+ * @copyright	Copyright (c) 2007-2010 iGrape Framework. (http://www.igrape.org)
+ * @license		LICENSE New BSD License
+ * @version		1.0.2
  *
  * ---------------------------------------------------------------
  *
@@ -107,7 +107,7 @@ class iGrape {
 		{
 			unset($this);
 			session_destroy();
-			reload('/');
+			reload(DS);
 		}
 		
 		// Instantiate the model

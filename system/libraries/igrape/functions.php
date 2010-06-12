@@ -1,5 +1,26 @@
 <?php
 /**
+ * iGrape Framework
+ *
+ * @category	iGrape
+ * @author		iGrape Dev Team
+ * @copyright	Copyright (c) 2007-2010 iGrape Framework. (http://www.igrape.org)
+ * @license		LICENSE New BSD License
+ * @version		0.2
+ *
+ * ---------------------------------------------------------------
+ *
+ * System Front Functions
+ *
+ * Loads the base classes and executes the request.
+ *
+ * @package		iGrape
+ * @subpackage	functions
+ * @category	Front-functions
+ * @author		iGrape Dev Team
+ */
+
+/**
  * Inserts a link to a css file
  * @return
  * @param $file Object
@@ -39,7 +60,7 @@ function debug($array, $type){
 function table($array,$style=NULL){
 	if($style){
 		foreach($style AS $attr=>$value){
-			echo $attr." - ".$value."<br />";
+			//echo $attr." - ".$value."<br />";
 		}
 	}
 	$c = 1;
@@ -53,19 +74,22 @@ function table($array,$style=NULL){
 		if($_SESSION["iGrape"]["error"] == 1)
 			break;
 			
-		$__tr = count($__values);
+		//$__tr = count($__values);
 		$__th[$c] = $__colum;
 			$v = 1;
 			foreach($__values AS $_values){
 				$var[$c][$v] = $_values;
 				$v++;
 			}
+			if($v>=@$vMax)
+				$vMax=$v;
 		$c++;
 	}
 	$__td = @count($var);
+	$__tr = $vMax-1;
 	
 	## CREATE TABLE
-	$return = "<table>\n";
+	$return = "<table id=\"".@$style["id"]."\" class=\"".@$style["class"]."\">\n";
 		## TITLE TABLE
 		$return .= "<tr>";
 		for($y=1;$y<=$__td;$y++){
@@ -79,7 +103,10 @@ function table($array,$style=NULL){
 			$return .= "<tr>\n";
 				for($y=1;$y<=$__td;$y++){
 					$return .= "<td>";
-						$return .= @$var[$y][$i];
+						if(!@$var[$y][$i])
+							$return .= "-";
+						else
+							$return .= @$var[$y][$i];
 					$return .= "</td>\n";
 				}
 			$return .= "</tr>\n";
@@ -190,9 +217,9 @@ function redirect($to) {
 	exit;
 }
 
-function reload($to)
+function refresh($to,$timer=0)
 {
-	echo "<meta http-equiv=\"refresh\" content=\"0;url=".url($to)."\">";
+	echo "<meta http-equiv=\"refresh\" content=\"".$timer.";url=".$to."\">";
 	exit;
 }
 
@@ -212,8 +239,9 @@ function url($to)
  * @return
  * @param $name The name of the variable
  * @param $value [optional] Value for the variable, if empty returns the variable's value
+ * @param $id [optional] Value for the variable, if empty returns the variable's ie
  */
-function session($name, $value = null, $id = null)
+function session($name,$value=null,$id=null)
 {
 	if($value === null)
 	{
@@ -226,7 +254,13 @@ function session($name, $value = null, $id = null)
 		if($id === null)
 			$_SESSION[$name] = $value;
 		else
+		{
+			foreach($id AS $_id)
+			{
+				$__id = "";
+			}
 			$_SESSION[$name][$id] = $value;
+		}
 	}
 }
 
@@ -236,7 +270,8 @@ function session($name, $value = null, $id = null)
  * @param $type The type json (encode/decode)
  * @param $json The json for process
  */
-function json($type,$json){
+function json($type,$json)
+{
 	switch($type){
 		case "encode":
 			$_json = json_encode($json);
@@ -246,32 +281,32 @@ function json($type,$json){
 			break;
 		case "error":
 			foreach($json as $string){
-		    	$_json = 'Decoding: ' . $string;
-		    	json_decode($string);
-
-		    	switch(json_last_error()){
-		        	case JSON_ERROR_DEPTH:
+				$_json = 'Decoding: ' . $string;
+				json_decode($string);
+				switch(json_last_error())
+				{
+					case JSON_ERROR_DEPTH:
 						$_json .= ' - Maximum stack depth exceeded';
-		        		break;
-		        	case JSON_ERROR_CTRL_CHAR:
+						break;
+					case JSON_ERROR_CTRL_CHAR:
 						$_json .= ' - Unexpected control character found';
-		        		break;
-		        	case JSON_ERROR_SYNTAX:
+						break;
+					case JSON_ERROR_SYNTAX:
  						$_json .= ' - Syntax error, malformed JSON';
-		        		break;
-		        	case JSON_ERROR_NONE:
+						break;
+					case JSON_ERROR_NONE:
  						$_json .= ' - No errors';
 						break;
-		    	}
-
-		    	$_json .= PHP_EOL;
+				}
+				$_json .= PHP_EOL;
 			}
 			break;
 	}
 	return @$_json;
 }
 
-function brouser(){ 
+function brouser()
+{
 	$nav = $_SERVER["HTTP_USER_AGENT"];
 	if(ereg("Mozilla", $nav))
 	{
