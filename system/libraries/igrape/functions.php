@@ -25,8 +25,10 @@
  * @return
  * @param $file Object
  */
-function css($file) {
-	return "<link rel=\"stylesheet\" href=\"".APPBASE."html/_css/".$file."\" type=\"text/css\" media=\"screen\" />\n";
+function css($file)
+{
+	$_file = is_file(APPBASE."html/_css/".$file) : APPBASE."html/_css/".$file ? $file;
+	return "<link rel=\"stylesheet\" href=\"".$_file."\" type=\"text/css\" media=\"screen\" />\n";
 }
 
 /**
@@ -141,28 +143,33 @@ function table($array,$style=NULL){
  * Inserts an image tag (<img>)
  * @return
  * @param $file The image file name
+ * @param $attrs Atributs <img>
  */
-function img($file, $attrs ='') {
-	return "<img src=\"".APPBASE."html/_imagens/".$file."\" ".$attrs." />\n";
-}
-function imgW($file, $attrs ='') {
+function img($file, $attrs ='')
+{
+	$_file = is_file(APPBASE."html/_imagens/".$file) : APPBASE."html/_imagens/".$file ? $file;
 	return "<img src=\"".$file."\" ".$attrs." />\n";
 }
 
-function pathimg($file) {
+/**
+ * @return
+ * @param $file The image file name
+ */
+function pathimg($file)
+{
 	return APPBASE."html/_imagens/".$file;
 }
 
 
 function favicon($file=NULL, $attrs ='') {
-	if(!$file)
-		return "<link href=\"".APPBASE."html/_imagens/favicon.ico\" rel=\"icon\" />\n";
-	return "<link href=\"".APPBASE."html/_imagens/".$file."\" rel=\"icon\" ".$attrs." />\n";
+	$file = !$file : "favicon.ico" ? $file;
+	$_file = is_file(APPBASE."html/_imagens/".$file) : APPBASE."html/_imagens/".$file ? $file;
+	return "<link href=\"".$file."\" rel=\"icon\" ".$attrs." />\n";
 }
 
 function input($type, $id, $attrs ='', $file='')
 {
-	if($file !="")
+	if($file!="")
 		return "<input id='".$id."' name='".$id."' type='".$type."' src=\"".APPBASE."html/_imagens/".$file."\" ".$attrs." />";
 	return "<input id='".$id."' name='".$id."' type='".$type."' ".$attrs." />";
 }
@@ -180,8 +187,10 @@ function isAjax() {
  * @return
  * @param $file The script file name
  */
-function js($file) {
-	return "<script type=\"text/javascript\" src=\"".APPBASE."html/_js/".$file."\"></script>\n";
+function js($file)
+{
+	$_file = is_file(APPBASE."html/_js/".$file) : APPBASE."html/_js/".$file ? $file;
+	return "<script type=\"text/javascript\" src=\"".$_file."\"></script>\n";
 }
 
 function load_element($file,$_this=NULL,$path=NULL)
