@@ -95,13 +95,13 @@ class iGrape {
 
 	function iGrape($cmd)
 	{
-		$args = split('/', $cmd);
+		$args = explode('/', $cmd);
 		if(empty($args[0]))
 		{
 			if(!defined('INDEX'))
 				define('INDEX', $conf['index_page']);
 			
-			$args = split('/', INDEX);
+			$args = explode('/', INDEX);
 		//}elseif($args[0] == LOGOUT_TRIGGER)
 		}elseif($args[0] == LOGOUT_TRIGGER)
 		{
