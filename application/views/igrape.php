@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?=favicon("content/logo_footer.gif")?>
 <?=css("style.css")?>
+<?=js("igrape.js")?>
 </head>
 <body>
 	<div class="wrap">
