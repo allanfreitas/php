@@ -27,7 +27,7 @@
  */
 function css($file)
 {
-	$_file = is_file(APPBASE."html/_css/".$file) : APPBASE."html/_css/".$file ? $file;
+	$_file = is_file(APPBASE."html/_css/".$file) ? APPBASE."html/_css/".$file : $file;
 	return "<link rel=\"stylesheet\" href=\"".$_file."\" type=\"text/css\" media=\"screen\" />\n";
 }
 
@@ -147,7 +147,7 @@ function table($array,$style=NULL){
  */
 function img($file, $attrs ='')
 {
-	$_file = is_file(APPBASE."html/_imagens/".$file) : APPBASE."html/_imagens/".$file ? $file;
+	$_file = is_file(APPBASE."html/_imagens/".$file) ? APPBASE."html/_imagens/".$file : $file;
 	return "<img src=\"".$file."\" ".$attrs." />\n";
 }
 
@@ -162,8 +162,8 @@ function pathimg($file)
 
 
 function favicon($file=NULL, $attrs ='') {
-	$file = !$file : "favicon.ico" ? $file;
-	$_file = is_file(APPBASE."html/_imagens/".$file) : APPBASE."html/_imagens/".$file ? $file;
+	$file = !$file ? "favicon.ico" : $file;
+	$_file = is_file(APPBASE."html/_imagens/".$file) ? APPBASE."html/_imagens/".$file : $file;
 	return "<link href=\"".$file."\" rel=\"icon\" ".$attrs." />\n";
 }
 
@@ -189,7 +189,7 @@ function isAjax() {
  */
 function js($file)
 {
-	$_file = is_file(APPBASE."html/_js/".$file) : APPBASE."html/_js/".$file ? $file;
+	$_file = is_file(APPBASE."html/_js/".$file) ? APPBASE."html/_js/".$file : $file;
 	return "<script type=\"text/javascript\" src=\"".$_file."\"></script>\n";
 }
 

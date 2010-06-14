@@ -37,8 +37,8 @@ require COREROOT."common".EXT;
  * ---------------------------------------------------------------
  */
 include CONFBASE.'_conf'.EXT;
-
 if(!isset($conf)) exit("<pre>You must configure the file _conf".EXT);
+global $conf;
 
 if($conf['ig_developer'])
 {
@@ -75,7 +75,7 @@ class iGrape {
 		exit("Missing model ".$name);
 	}
 	
-		function missingController($name = "")
+	function missingController($name = "")
 	{
 		exit("Missing controller ".$name);
 	}
@@ -88,29 +88,20 @@ class iGrape {
 	function className($_name,$type)
 	{
 		$_name[0] = strtoupper($_name[0]);
-
 		$name = "";
-
-		for($i = 0; $i < strlen($_name); $i++)
+		for($i=0;$i<strlen($_name);$i++)
 		{
 			if($_name[$i] == '_')
-				$_name[$i + 1] = strtoupper($_name[$i+1]);
+				$_name[$i+1] = strtoupper($_name[$i+1]);
 			else
 				$name .= $_name[$i];
 		}
-
 		return($name.$type);
 	}
 
 	function iGrape($cmd)
 	{
-		global $conf;
-		if(is_array($conf)) $this->_conf = $conf;
-		
 		$args = explode('/', $cmd);
-		
-		$this->_conf = $conf;
-		
 		if(empty($args[0]))
 		{
 			if(!defined('INDEX'))
@@ -126,7 +117,7 @@ class iGrape {
 		
 		// Instantiate the model
 		$_model = iGrape::loadModel($args[0]);
-		$_model->model = empty($args[1]) ? $conf['index_function'] : $args[1];
+		$_model->model = empty($args[1]) ? 'index' : $args[1];
 		
 		if($_model->model[0] == "_" || is_callable(array('Model', $_model->model)))
 		{
@@ -135,7 +126,9 @@ class iGrape {
 		
 		// Instantiate the controller
 		$_controller = iGrape::loadController($args[0]);
-		$_controller->action = empty($args[1]) ? $conf['index_function'] : $args[1];
+		$_controller->action = empty($args[1]) ? 'index' : $args[1];
+		if(is_callable(array(&$_model, $_model->model)))
+			$_controller->model = call_user_func_array(array(&$_model, $_model->model), "");
 		
 		// set up the parameters
 		for($i = 2; $i < count($args); $i++)
@@ -168,7 +161,6 @@ class iGrape {
 		if(is_file(APPBASE.'models'.DS.$name.EXT))
 		{
 			include APPBASE.'models'.DS.$name.EXT;
-
 			$className = iGrape::className($name,'Model');
 			if(class_exists($className))
 			{
@@ -176,6 +168,8 @@ class iGrape {
 				$model->name = $className;
 				return $model;
 			}
+			// If we got here, there's an error!
+			iGrape::missingModel($name);
 		}
 	}
 
@@ -184,10 +178,7 @@ class iGrape {
 		if(is_file(APPBASE.'controllers'.DS.$name.EXT))
 		{
 			include APPBASE.'controllers'.DS.$name.EXT;
-
 			$className = iGrape::className($name,'Controller');
-			
-
 			if(class_exists($className))
 			{
 				$controller = new $className();
@@ -195,7 +186,6 @@ class iGrape {
 				return $controller;
 			}
 		}
-
 		// If we got here, there's an error!
 		iGrape::missingController($name);
 	}
