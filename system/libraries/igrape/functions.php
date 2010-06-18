@@ -213,18 +213,23 @@ function load_element($file,$_this=NULL,$path=NULL)
  */
 function load($__lib, $__params = array()) {
 	$__libfile = LIB.$__lib.DS.$__lib.EXT;
-	unset($__lib);
-
-	if(!is_file($__libfile)) {
+	
+	if(!is_file($__libfile) && !$__params['conf'])
+	{
 		echo "Error importing $__libfile (can't read!)";
-	}else{
+	}else
+	{
 		foreach($__params as $__name => $__value)
 			$$__name = $__value;
 		unset($__name);
 		unset($__value);
 		unset($__params);
 
- 		include $__libfile;
+		if(is_file($__libfile))
+			include $__libfile;
+		elseif(is_file(LIB.$__lib.EXT))
+			include LIB.$__lib.EXT;
+		
 	}
 }
 
@@ -299,7 +304,7 @@ function session($name,$value=null,$id=null)
  * @param $type The type json (encode/decode)
  * @param $json The json for process
  */
-function json($type,$json)
+function json($json,$type)
 {
 	switch($type){
 		case "encode":
@@ -332,6 +337,31 @@ function json($type,$json)
 			break;
 	}
 	return @$_json;
+}
+
+function toConvert($str,$type)
+{
+	switch($type){
+		case "obj":
+			$object = new stdClass();
+			if (is_array($str) && count($str) > 0) {
+				foreach ($str as $name=>$value) {
+					$name = strtolower(trim($name));
+					if (!empty($name)) {
+						$object->$name = $str;
+					}
+				}
+			}
+			return $object;
+			break;
+		case "array":
+			$str = array();
+			if (is_object($object)) {
+				$str = get_object_vars($object);
+			}
+			return $str;
+			break;
+	}
 }
 
 function brouser()

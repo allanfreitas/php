@@ -20,6 +20,33 @@
  * @author		iGrape Dev Team
  * @link		http://wiki.github.com/avelino/igrape/user-guide
  */
-
-load("orm/bootstrapping",array("conf"=>true));
+class orm_core {
+	
+	public $table = array();
+	public $field = array();
+	
+	public function setTable($table)
+	{
+		$this->table = $table;
+	}
+	public function getTable()
+	{
+		return $this->table;
+	}
+	
+	public function getMap()
+	{
+		return $this;
+	}
+	
+	public function addField($field,$type,$lenght,$attr)
+	{
+		$this->field[$field]['field'] = $field;
+		$this->field[$field]['type'] = $type;
+		$this->field[$field]['lenght'] = $lenght;
+		$this->field[$field]['attr'] = $attr;
+		
+		return toConvert($this->field,"obj");
+	}
+}
 ?>

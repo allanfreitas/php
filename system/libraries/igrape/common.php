@@ -29,7 +29,14 @@ function __autoload($class) {
 		while (false !== ($entry=$dir->read())) {
 			if(($entry!="." && $entry!=".." && $entry!="igrape") && $entry == $class)
 			{
-				require LIB.$class.DS.$class.EXT;
+				if(file_exists(LIB.$class.DS.$class.EXT))
+					require LIB.$class.DS.$class.EXT;
+				else
+				{
+					//$_class = explode(".",$class);
+					//require LIB.$_class[0].DS.$_class[1].EXT;
+					//if(file_exists(LIB))
+				}
 			}
 		}
 		$dir->close();
