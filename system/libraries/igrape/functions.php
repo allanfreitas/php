@@ -46,14 +46,18 @@ function error($text){
  * @param $array The array for debug
  * @param $type The type for debug
 **/
-function debug($array, $type){
+function debug($array, $type)
+{
+	echo "<pre>";
 	switch($type) {
 		case "array":
-			echo "<pre>";
-				print_r($array);
-			echo "</pre>";
+			print_r($array);
+			break;
+		case "json":
+			print_r(json($array,"encode"));
 			break;
 	}
+	echo "</pre>";
 }
 
 /**
