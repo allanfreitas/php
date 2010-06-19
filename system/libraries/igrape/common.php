@@ -44,35 +44,72 @@ function __autoload($class) {
 	}
 }
 
-function load_class($class)
+/**
+ * Loads a file from system/libraries/
+ * @return
+ */
+function load($class)
 {
-	static $objects = array();
-	$objects[$class] = $class;
+	static $objects			= array();
+	static $_class			= array();
+	static $count			= NULL;
+	$path					= NULL;
 	
 	if(isset($objects[$class]))
-	{
 		return $objects[$class];
-	}
+	else
+		$objects[$class] = $class;
 	
-	if(file_exists(LIB.$class.EXT))
+	$_class					= explode(".",$class);
+	$count					= count($_class)-1;
+	foreach($_class AS $n=>$value)
 	{
-		require LIB.$class.EXT;
-		return $objects[$class];
+		if($count!=$n)
+			$path .= $value.DS;
+	}
+	if($path)
+	{
+		if(file_exists(LIB.$path.$_class[$count].EXT))
+		{
+			include LIB.$path.$_class[$count].EXT;
+			if(class_exists($_class[$count]))
+				return new $_class[$count];
+			else
+				return $objects[$class];
+		}
+		else
+			exit("Error load file/class [".$class."], please check documentation.");
 	}else
 	{
-		$dir = dir(LIB);
-		while (false !== ($entry = $dir->read()))
+		if(file_exists(LIB.$_class[$count].EXT))
 		{
-			if(($entry != "." && $entry != ".." && $entry != "igrape") && $entry == $class)
-			{
-				require LIB.$class.DS.$class.EXT;
+			include LIB.$_class[$count].EXT;
+			if(class_exists($_class[$count]))
+				return new $_class[$count];
+			else
 				return $objects[$class];
-			}
-		}
-		$dir->close();
+		}else
+			exit("Error load class [".$class."], please check documentation.");
 	}
-	$objects['error'] = "Error load class [".$class."], please check documentation.";
-	return $objects['error'];
+}
+
+/**
+ * Loads a element from application/views/_elements/
+ * @param Element
+ * @param Var constant
+ * @param Folder (Path)
+ */
+function load_element($file,$_this=NULL,$path=NULL)
+{
+	if(is_file(APPBASE."views".DS."_elements".DS.$path.DS.$file.EXT))
+	{
+		include APPBASE."views".DS."_elements".DS.$path.DS.$file.EXT;
+	}else
+	{
+		include APPBASE."views".DS."_elements".DS.$file.EXT;
+	}
+	
+	return false;
 }
 
 function get_conf()

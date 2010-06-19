@@ -204,55 +204,6 @@ function js($file)
 	return "<script type=\"text/javascript\" src=\"".$_file."\"></script>\n";
 }
 
-function load_element($file,$_this=NULL,$path=NULL)
-{
-	if(is_file(APPBASE."views".DS."_elements".DS.$path.DS.$file.EXT))
-	{
-		include APPBASE."views".DS."_elements".DS.$path.DS.$file.EXT;
-	}else
-	{
-		include APPBASE."views".DS."_elements".DS.$file.EXT;
-	}
-	
-	return false;
-}
-
-/**
- * Loads a file from APP/lib
- * @return
- * @param $lib The file name to include
- */
-function load($__lib, $__params = array())
-{
-	$__libfile = LIB.$__lib.DS.$__lib.EXT;
-	
-	if(!is_file($__libfile) && !$__params['conf'])
-	{
-		echo "Error importing $__libfile (can't read!)";
-	}else
-	{
-		foreach($__params as $__name => $__value)
-			$$__name = $__value;
-		unset($__name);
-		unset($__value);
-		unset($__params);
-
-		if(is_file($__libfile))
-			include $__libfile;
-		elseif(is_file(LIB.$__lib.EXT))
-			include LIB.$__lib.EXT;
-		
-	}
-}
-
-function load_conf($__conf)
-{
-	if(is_file($__conf))
-	{
-		//include "".$__conf;
-	}
-}
-
 /**
  * Redirects the user to another controller/action
  * @return
@@ -268,6 +219,11 @@ function refresh($to,$timer=0)
 {
 	echo "<meta http-equiv=\"refresh\" content=\"".$timer.";url=".$to."\">";
 	exit;
+}
+
+function reload($to)
+{
+	refresh($to);
 }
 
 /**

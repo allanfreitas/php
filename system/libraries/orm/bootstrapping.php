@@ -4,9 +4,9 @@
  *
  * @category	iGrape
  * @author		iGrape Dev Team
- * @copyright	Copyright (c) 2007-2010 Chierry Inc. (http://www.igrape.org)
- * @license		/LICENSE.txt New BSD License
- * @version		0.1
+ * @copyright	Copyright (c) 2007-2010 iGrape Framework. (http://www.igrape.org)
+ * @license		LICENSE New BSD License
+ * @version		0.2.1
  *
  * ---------------------------------------------------------------
  *
@@ -16,12 +16,13 @@
  *
  * @package		iGrape
  * @subpackage	orm
- * @category	ORM
+ * @category	Database
  * @author		iGrape Dev Team
- * @link		http://wiki.github.com/avelino/igrape/user-guide
+ * @link		http://wiki.github.com/igrape/igrape/
  */
-load("orm/core",array("conf"=>true));
-class ORM extends orm_core {
+
+load("orm.orm_core");
+class ORM {
 	
 	private static $i = NULL;
 	public $data = array();
@@ -50,11 +51,12 @@ class ORM extends orm_core {
 	
 	public function __construct()
 	{
+		/*
 		$this->setTable("test");
 		
 		$this->getMap()->addField("id_user","int",7,array());
 		$this->getMap()->addField("id_user2","int",7,array());
-		
+		*/
 		//debug($this->getMap()->field,"array");
 	}
 	
