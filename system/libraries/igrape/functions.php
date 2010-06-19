@@ -35,7 +35,8 @@ function css($file)
  * Display error
  * @param $text The error display
 **/
-function error($text){
+function error($text)
+{
 	$_SESSION["iGrape"]["error"]=NULL;
 	echo "<pre style='color: #FFF; background: #C00'> <b>ERROR</b> :: ".$text."</pre>";
 	$_SESSION["iGrape"]["error"] = 1;
@@ -48,7 +49,7 @@ function error($text){
 **/
 function debug($array, $type)
 {
-	echo "<pre>";
+	echo $type=="text" ? "" : "<pre>";
 	switch($type) {
 		case "array":
 			print_r($array);
@@ -56,8 +57,11 @@ function debug($array, $type)
 		case "json":
 			print_r(json($array,"encode"));
 			break;
+		case "text":
+			print_r($array);
+			break;
 	}
-	echo "</pre>";
+	echo $type=="text" ? "\n" : "</pre>";
 }
 
 /**
@@ -83,7 +87,8 @@ table(
 	array("id"=>"iGTable","class"=>"mytable")
 );
 */
-function table($array,$style=NULL){
+function table($array,$style=NULL)
+{
 	if($style){
 		foreach($style AS $attr=>$value){
 			//echo $attr." - ".$value."<br />";
@@ -152,7 +157,7 @@ function table($array,$style=NULL){
 function img($file, $attrs ='')
 {
 	$_file = is_file(APPBASE."html/_imagens/".$file) ? APPBASE."html/_imagens/".$file : $file;
-	return "<img src=\"".$file."\" ".$attrs." />\n";
+	return "<img src=\"".$_file."\" ".$attrs." />\n";
 }
 
 /**
@@ -168,7 +173,7 @@ function pathimg($file)
 function favicon($file=NULL, $attrs ='') {
 	$file = !$file ? "favicon.ico" : $file;
 	$_file = is_file(APPBASE."html/_imagens/".$file) ? APPBASE."html/_imagens/".$file : $file;
-	return "<link href=\"".$file."\" rel=\"icon\" ".$attrs." />\n";
+	return "<link href=\"".$_file."\" rel=\"icon\" ".$attrs." />\n";
 }
 
 function input($type, $id, $attrs ='', $file='')
@@ -182,7 +187,8 @@ function input($type, $id, $attrs ='', $file='')
  * Returns TRUE if this in an AJAX request
  * @return
  */
-function isAjax() {
+function isAjax()
+{
 	return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&  ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 }
 
@@ -215,7 +221,8 @@ function load_element($file,$_this=NULL,$path=NULL)
  * @return
  * @param $lib The file name to include
  */
-function load($__lib, $__params = array()) {
+function load($__lib, $__params = array())
+{
 	$__libfile = LIB.$__lib.DS.$__lib.EXT;
 	
 	if(!is_file($__libfile) && !$__params['conf'])
@@ -250,7 +257,8 @@ function load_conf($__conf)
  * @return
  * @param $to URL to go to, in the "controller/action/parameters" form
  */
-function redirect($to) {
+function redirect($to)
+{
 	header('Location: '.url($to));
 	exit;
 }
@@ -390,6 +398,6 @@ function nocache()
 	@header("Pragma: no-cache");
 	@header("Cache: no-cahce");
 	@header("Cache-Control: no-cache, must-revalidate");
-	@header("Expires: Mon, 23 Jul 1989 00:00:00 GMT");
+	@header("Expires: Mon, 05 Jan 1989 00:00:00 GMT");
 }
 ?>
