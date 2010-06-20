@@ -51,8 +51,6 @@ if($conf['user_abort']) ignore_user_abort();
 if(file_exists(COREROOT.'model'.EXT)) include COREROOT.'model'.EXT;
 if(file_exists(COREROOT.'controller'.EXT)) include COREROOT.'controller'.EXT;
 
-if($conf['ig_functions']) include COREROOT."functions".EXT;
-
 if(file_exists(APPBASE."controllers".DS."app".EXT)) include APPBASE."controllers".DS."app".EXT;
 
 class iGrape {

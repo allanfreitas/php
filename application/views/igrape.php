@@ -3,9 +3,9 @@
 <head>
 <title>iGrape is Running</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<?=favicon("content/logo_footer.gif")?>
-<?=css("style.css")?>
-<?=js("igrape.js")?>
+<?=html::favicon("content/logo_footer.gif")?>
+<?=html::css("style.css")?>
+<?=html::js("igrape.js")?>
 </head>
 <body>
 	<div class="wrap">

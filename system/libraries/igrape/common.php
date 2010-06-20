@@ -20,6 +20,11 @@
  * @author		iGrape Dev Team
  * @link		http://wiki.github.com/igrape/igrape/
  */
+
+/**
+ * Auto loads a file from system/libraries/
+ * @return
+ */
 function __autoload($class) {
 	if(file_exists(LIB.$class.EXT))
 	{
@@ -94,6 +99,28 @@ function load($class)
 }
 
 /**
+ * Debug is array
+ * @param $array The array for debug
+ * @param $type The type for debug
+ */
+function debug($array, $type="text")
+{
+	echo $type=="text" ? "" : "<pre>";
+	switch($type) {
+		case "array":
+			print_r($array);
+			break;
+		case "json":
+			print_r(json($array,"encode"));
+			break;
+		case "text":
+			print_r($array);
+			break;
+	}
+	echo $type=="text" ? "\n" : "</pre>";
+}
+
+/**
  * Loads a element from application/views/_elements/
  * @param Element
  * @param Var constant
@@ -112,27 +139,158 @@ function load_element($file,$_this=NULL,$path=NULL)
 	return false;
 }
 
-function get_conf()
+/**
+ * Display error
+ * @param $text The error display
+**/
+function error($text)
 {
-	//static $_conf = array();
-
-	if (!isset($_conf))
-	{
-		if(!file_exists(CONFBASE.'_conf'.EXT))
-		{
-			exit("The _conf".EXT." file wasn't found.");
-		}
-		
-		include CONFBASE.'_conf'.EXT;
-		
-		print_r($_conf);
-		if (!isset($conf) OR !is_array($conf))
-		{
-			exit("You must configure the file _conf".EXT);
-		}
-
-		//$_conf[0] =& $config;
-	}
-	return $_conf;
+	$_SESSION["iGrape"]["error"]=NULL;
+	echo "<pre style='color: #FFF; background: #C00'> <b>ERROR</b> :: ".$text."</pre>";
+	$_SESSION["iGrape"]["error"] = 1;
 }
+
+/**
+ * Return the right url for the controller/action passed
+ * @return
+ * @param $to URL to go to, in the "controller/action/parameters" form
+ */
+function url($to)
+{
+	if($to == '/') $to = '';
+	return WEBROOT.SCRIPT_NAME.$to;
+}
+
+/**
+ * Reads or writes to the session
+ * @return
+ * @param $name The name of the variable
+ * @param $value [optional] Value for the variable, if empty returns the variable's value
+ * @param $id [optional] Value for the variable, if empty returns the variable's ie
+ */
+function session($name,$value=null,$id=null)
+{
+	if($value === null)
+	{
+		if(isset($_SESSION[$name]))
+			return $_SESSION[$name];
+		else
+			return null;
+	}else
+	{
+		if($id === null)
+			$_SESSION[$name] = $value;
+		else
+		{
+			foreach($id AS $_id)
+			{
+				$__id = "";
+			}
+			$_SESSION[$name][$id] = $value;
+		}
+	}
+}
+
+/**
+ * Return the right json
+ * @return
+ * @param $type The type json (encode/decode)
+ * @param $json The json for process
+ */
+function json($json,$type)
+{
+	switch($type){
+		case "encode":
+			$_json = json_encode($json);
+			break;
+		case "decode":
+			$_json = json_decode($json);
+			break;
+		case "error":
+			foreach($json as $string){
+				$_json = 'Decoding: ' . $string;
+				json_decode($string);
+				switch(json_last_error())
+				{
+					case JSON_ERROR_DEPTH:
+						$_json .= ' - Maximum stack depth exceeded';
+						break;
+					case JSON_ERROR_CTRL_CHAR:
+						$_json .= ' - Unexpected control character found';
+						break;
+					case JSON_ERROR_SYNTAX:
+ 						$_json .= ' - Syntax error, malformed JSON';
+						break;
+					case JSON_ERROR_NONE:
+ 						$_json .= ' - No errors';
+						break;
+				}
+				$_json .= PHP_EOL;
+			}
+			break;
+	}
+	return @$_json;
+}
+
+/**
+ * Return the right obj/array/json
+ * @return
+ * @param $str String that will come
+ * @param $type Way that will return
+ */
+function toConvert($str,$type)
+{
+	switch($type){
+		case "obj":
+			$object = new stdClass();
+			if (is_array($str) && count($str) > 0) {
+				foreach ($str as $name=>$value) {
+					$name = strtolower(trim($name));
+					if (!empty($name)) {
+						$object->$name = $str;
+					}
+				}
+			}
+			return $object;
+			break;
+		case "array":
+			$str = array();
+			if (is_object($object)) {
+				$str = get_object_vars($object);
+			}
+			return $str;
+			break;
+	}
+}
+
+/**
+ * Redirects the user to another controller/action
+ * @return
+ * @param $to URL to go to, in the "controller/action/parameters" form
+ * @param $meta Is meta or header
+ * @param $timer Is time refresh
+ */
+function redirect($to,$meta=NULL,$timer=0)
+{
+	if(!$meta)
+		header('Location: '.url($to));
+	else
+	{
+		exit("<meta http-equiv=\"refresh\" content=\"".$timer.";url=".$to."\">");
+	}
+}
+
+/**
+ * Redirects the user to another controller/action
+ * @return
+ * @param $to URL to go to, in the "controller/action/parameters" form
+ */
+function nocache()
+{
+	@header("Pragma: no-cache");
+	@header("Cache: no-cahce");
+	@header("Cache-Control: no-cache, must-revalidate");
+	@header("Expires: Mon, 05 Jan 1989 00:00:00 GMT");
+}
+
 ?>
