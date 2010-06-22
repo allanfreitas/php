@@ -37,8 +37,7 @@ require COREROOT."common".EXT;
  * ---------------------------------------------------------------
  */
 include CONFBASE.'_conf'.EXT;
-if(!isset($conf)) exit("<pre>You must configure the file _conf".EXT);
-global $conf;
+if(!isset($conf)) exit("You must configure the file _conf".EXT);
 
 if($conf['ig_developer'])
 {
@@ -50,6 +49,7 @@ if($conf['user_abort']) ignore_user_abort();
 
 if(file_exists(COREROOT.'model'.EXT)) include COREROOT.'model'.EXT;
 if(file_exists(COREROOT.'controller'.EXT)) include COREROOT.'controller'.EXT;
+if(file_exists(COREROOT.'parser'.EXT)) include COREROOT.'parser'.EXT;
 
 if(file_exists(APPBASE."controllers".DS."app".EXT)) include APPBASE."controllers".DS."app".EXT;
 
@@ -104,7 +104,6 @@ class iGrape {
 		{
 			if(!defined('INDEX'))
 				define('INDEX', $conf['index_page']);
-			
 			$args = explode('/', INDEX);
 		}elseif($args[0] == LOGOUT_TRIGGER)
 		{
@@ -170,7 +169,7 @@ class iGrape {
 			iGrape::missingModel($name);
 		}
 	}
-
+	
 	function loadController($name)
 	{
 		if(is_file(APPBASE.'controllers'.DS.$name.EXT))
@@ -187,33 +186,36 @@ class iGrape {
 		// If we got here, there's an error!
 		iGrape::missingController($name);
 	}
-
-
+	
 	function renderFile($__view, $__layout, $__data)
 	{
 		foreach($__data as $__name => $__value)
 		{
-			$$__name = $__value;
+			if($__name == "render")
+				$__tag = $__value;
+			else
+				$$__name = $__value;
 		}
-
 		unset($__data);
 		unset($__name);
 		unset($__value);
-
 		ob_start();
-		include($__view);
-		$_content = ob_get_clean();
-
-		$_layout = APPBASE.'views'.DS.$__layout.'.php';
-
-		if(is_file($_layout))
+		if($this->conf['ig_parser']==TRUE)
 		{
-			include $_layout;
-		}else
-		{
-			
+			$iGParser=&new Parser($__view);
+			$iGParser->template($this->getParser());
+			$_content = $iGParser->display();
+		}else{
+			include($__view);
+			$_content = ob_get_clean();
 		}
-
+		
+		$_layout = APPBASE.'views'.DS.$__layout.'.php';
+		
+		if(is_file($_layout))
+			include $_layout;
+		else
+			include APPBASE.'views'.DS.'default.php';
 	}
 }
 ?>

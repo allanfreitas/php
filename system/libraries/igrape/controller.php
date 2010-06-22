@@ -29,6 +29,10 @@ class Controller {
 	public $_layout;
 	public $action = '';
 	public $name = '';
+	
+	public $conf = array();
+	
+	public $parser = array();
 
 	public function __construct()
     {
@@ -41,6 +45,9 @@ class Controller {
 
 	public function render($_action = null)
 	{
+		include CONFBASE.'_conf'.EXT;
+		if(!isset($conf)) exit("<pre>You must configure the file _conf".EXT);
+		$this->conf = $conf;
 		AppController::before();
 		if(!$_action)
 			$_action = $this->action;
@@ -52,9 +59,7 @@ class Controller {
 			$this->action = $_action;
 			iGrape::missingView($this);
 		}else
-		{			
 			iGrape::renderFile($_view, $this->layout, $this->data);
-		}
 		AppController::after();
 	}
 
@@ -74,8 +79,18 @@ class Controller {
     }
 	
 	public function __destruct()
-    {
-    }
+	{
+	}
+
+	public function setParser($parser)
+	{
+		$this->parser = $parser;
+	}
+	
+	public function getParser()
+	{
+		return $this->parser;
+	}
 
 }
 ?>

@@ -26,6 +26,7 @@
 	*	Variables global application
 	* ---------------------------------------------------------------
 	*/
+	global $conf;
 	$conf['base_url'] 			= "http://localhost/igrape";
 	$conf['index_controllers']	= "run";
 	$conf['index_function']		= "index";
@@ -44,8 +45,8 @@
 	*	Functions CLEAN
 	* ---------------------------------------------------------------
 	*/
-	$conf['ig_developer'] 	= TRUE;
-	$conf['ig_functions'] 	= TRUE;
+	$conf['ig_developer']	= TRUE;
+	$conf['ig_parser']		= FALSE;
 	
 	include CONFBASE."database".EXT;
 ?>

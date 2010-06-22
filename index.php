@@ -70,8 +70,8 @@ define('SELF',				pathinfo(__FILE__, PATHINFO_BASENAME));
 define("PATH",				realpath(dirname(__FILE__)));
 define('COREPATH',			LIB.'igrape'.DS);
 define('COREFILE',			COREPATH.'core'.EXT);
-define('SYSROOT',			PATH.SYSBASE);
-define('APPROOT',			PATH.APPBASE);
+define('SYSROOT',			PATH.DS.SYSBASE);
+define('APPROOT',			PATH.DS.APPBASE);
 define('CONFROOT',			APPROOT.'config'.DS);
 define('COREROOT',			PATH.DS.COREPATH);
 define('CGI',				1);
@@ -97,5 +97,5 @@ require_once COREFILE;
 
 new iGrape($cmd);
 
-ob_flush();
+@ob_flush();
 ?>
