@@ -7,7 +7,6 @@ class iG_Zend {
 	 */
 	function load($class)
 	{
-		ini_set('include_path',ini_get('include_path').PATH_SEPARATOR.SYSROOT.'libraries'.PATH_SEPARATOR);
 		load($class);
 	}
 }

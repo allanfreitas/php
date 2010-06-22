@@ -53,6 +53,8 @@ if(file_exists(COREROOT.'parser'.EXT)) include COREROOT.'parser'.EXT;
 
 if(file_exists(APPBASE."controllers".DS."app".EXT)) include APPBASE."controllers".DS."app".EXT;
 
+ini_set('include_path',ini_get('include_path').PATH_SEPARATOR.SYSROOT.'libraries'.PATH_SEPARATOR);
+
 class iGrape {
 	
 	function index()

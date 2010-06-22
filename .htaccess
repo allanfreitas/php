@@ -4,7 +4,6 @@
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond $1 !^(index\.php|img|css|js|favicon\.ico|robots\.txt)
-	RewriteCond /application/html/_css/$1 !^(css)
 	RewriteRule ^(.*)$ /?/$1 [L,NS]
 </IfModule>
 
