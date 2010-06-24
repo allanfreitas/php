@@ -1,4 +1,25 @@
 <?php 
+/**
+ * iGrape Framework
+ *
+ * @category	iGrape
+ * @author		iGrape Dev Team
+ * @copyright	Copyright (c) 2007-2010 iGrape Framework. (http://www.igrape.org)
+ * @license		LICENSE New BSD License
+ * @version		0.2.1
+ *
+ * ---------------------------------------------------------------
+ *
+ * System Front Controller
+ *
+ * Loads the base classes and executes the request.
+ *
+ * @package		iGrape
+ * @category	isgd
+ * @author		iGrape Dev Team
+ * @link		http://wiki.github.com/igrape/igrape/
+ */
+
 class isgd { 
 	
 	public $url_long, $url_short, $error, $error_msg = NULL;
