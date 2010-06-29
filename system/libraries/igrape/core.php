@@ -127,7 +127,7 @@ class iGrape {
 		$_controller = iGrape::loadController($args[0]);
 		$_controller->action = empty($args[1]) ? 'index' : $args[1];
 		if(is_callable(array(&$_model, $_model->model)))
-			$_controller->model = call_user_func_array(array(&$_model, $_model->model), "");
+			$_controller->model = call_user_func_array(array(&$_model, $_model->model), $_controller->argv);
 		
 		// set up the parameters
 		for($i = 2; $i < count($args); $i++)
