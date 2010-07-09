@@ -5,7 +5,16 @@
  * This file contains the main constants and variables ( as well some functions ) 
  * to make the system work all right and plug'n'play.
  */
-
+/**
+ * iGrape Framework
+ *
+ * @category	iGrape
+ * @author		iGrape Dev Team
+ * @copyright	Copyright (c) 2007-2010 iGrape Framework. (http://www.igrape.org)
+ * @license		LICENSE New BSD License
+ * @version		0.2.2
+ *
+ */
 
 ##########################################
 # URL

@@ -10,6 +10,16 @@
  * @author Kléderson Bueno <klederson@klederson.com>
  * @version 1.0
  */
+/**
+ * iGrape Framework
+ *
+ * @category	iGrape
+ * @author		iGrape Dev Team
+ * @copyright	Copyright (c) 2007-2010 iGrape Framework. (http://www.igrape.org)
+ * @license		LICENSE New BSD License
+ * @version		0.2.2
+ *
+ */
 @ob_start();
 @session_start();
 

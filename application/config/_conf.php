@@ -4,21 +4,10 @@
  *
  * @category	iGrape
  * @author		iGrape Dev Team
- * @copyright	Copyright (c) 2007-2010 iGrape Inc. (http://www.igrape.org)
- * @license		/LICENSE.txt New BSD License
- * @version		$Id: _conf.php 10096 2010-03-08 14:05:09Z $
+ * @copyright	Copyright (c) 2007-2010 iGrape Framework. (http://www.igrape.org)
+ * @license		LICENSE New BSD License
+ * @version		0.2.2
  *
- * ---------------------------------------------------------------
- *
- * System Front Controller
- *
- * Loads the base classes and executes the request.
- *
- * @package		iGrape
- * @subpackage	conf
- * @category	Front-controller
- * @author		iGrape Dev Team
- * @link		http://code.google.com/p/igrape/wiki/UserGuide
  */
 
 	/**
