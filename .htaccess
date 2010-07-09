@@ -1,12 +1,12 @@
 <IfModule mod_rewrite.c>
-	RewriteEngine Off
-	RewriteBase /
+	RewriteEngine On
+	#RewriteBase /
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond $1 !^(index\.php|img|css|js|favicon\.ico|robots\.txt)
-	RewriteRule ^(.*)$ /?/$1 [L,NS]
+	RewriteRule ^(.*)$ ?/$1 [L]
 </IfModule>
 
 <IfModule !mod_rewrite.c>
-	ErrorDocument 404 /?/
+	ErrorDocument 404 ?/
 </IfModule>
