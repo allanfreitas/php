@@ -16,6 +16,9 @@
  * @version		0.2.2
  *
  */
+include CONFBASE.'_conf'.EXT;
+
+define('SYS_USE_FIREPHP',$conf['phpburn_debug'],true);
 
 include "config.php";
 

@@ -308,7 +308,8 @@ abstract class PhpBURN_Dialect  implements IDialect  {
 	 * @param String $sql
 	 */
 	public function execute($sql) {
-		PhpBURN_Message::output("[!Performing the query!]: $sql");
+		if(SYS_USE_FIREPHP==1)
+			PhpBURN_Message::output("[!Performing the query!]: $sql");
 		return $this->getModel()->getConnection()->executeSQL($sql);
 		//$this->resultSet = &$this->getModel()->getConnection()->executeSQL($sql);
 	}

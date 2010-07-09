@@ -37,4 +37,6 @@
 	$conf['ig_developer']	= TRUE;
 	$conf['ig_parser']		= FALSE;
 	$conf['phpburn']		= TRUE;
+	$conf['phpburn_debug']	= FALSE;
+	
 ?>
