@@ -47,13 +47,20 @@ if($conf['ig_developer'])
 if($conf['time_limit']) set_time_limit(0);
 if($conf['user_abort']) ignore_user_abort();
 
-if(file_exists(COREROOT.'model'.EXT)) include COREROOT.'model'.EXT;
-if(file_exists(COREROOT.'controller'.EXT)) include COREROOT.'controller'.EXT;
-if(file_exists(COREROOT.'parser'.EXT)) include COREROOT.'parser'.EXT;
+ini_set('include_path',ini_get('include_path').PATH_SEPARATOR.SYSROOT.'libraries'.PATH_SEPARATOR);
+
+if($conf['phpburn'])
+{
+	load("phpBurn.PhpBURN");
+	load("phpBurn.libs.Model");
+	if(file_exists(COREROOT.'model'.EXT)) require COREROOT.'model'.EXT;
+	foreach (glob(MODELSBASE."*".DS."*".EXT) as $file)
+		include $file;
+}
+if(file_exists(COREROOT.'controller'.EXT)) require COREROOT.'controller'.EXT;
+if(file_exists(COREROOT.'parser'.EXT)) require COREROOT.'parser'.EXT;
 
 if(file_exists(APPBASE."controllers".DS."app".EXT)) include APPBASE."controllers".DS."app".EXT;
-
-ini_set('include_path',ini_get('include_path').PATH_SEPARATOR.SYSROOT.'libraries'.PATH_SEPARATOR);
 
 class iGrape {
 	
@@ -202,9 +209,9 @@ class iGrape {
 		unset($__name);
 		unset($__value);
 		ob_start();
-		if($this->conf['ig_parser']==TRUE)
+		if($this->conf['ig_parser'])
 		{
-			$iGParser=&new Parser($__view);
+			@$iGParser= new Parser(@$__view);
 			$iGParser->template($this->getParser());
 			$_content = $iGParser->display();
 		}else{

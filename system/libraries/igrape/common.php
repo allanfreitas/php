@@ -25,6 +25,10 @@
  * Auto loads a file from system/libraries/
  * @return
  */
+
+include CONFBASE.'_conf'.EXT;
+if(!isset($conf)) exit("You must configure the file _conf".EXT);
+
 function __autoload($class) {
 	if(file_exists(LIB.$class.EXT))
 	{
@@ -39,9 +43,8 @@ function __autoload($class) {
 					require LIB.$class.DS.$class.EXT;
 				else
 				{
-					//$_class = explode(".",$class);
-					//require LIB.$_class[0].DS.$_class[1].EXT;
-					//if(file_exists(LIB))
+					iGrape::invalidModel();
+					exit;
 				}
 			}
 		}
@@ -72,6 +75,7 @@ function load($class)
 		if($count!=$n)
 			$path .= $value.DS;
 	}
+	
 	if($path)
 	{
 		if(file_exists(LIB.$path.$_class[$count].EXT))

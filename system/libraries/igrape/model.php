@@ -15,12 +15,12 @@
  * Loads the base classes and executes the request.
  *
  * @package		iGrape
- * @subpackage	modal
+ * @subpackage	phpBurn
  * @category	Front-modal
  * @author		iGrape Dev Team
  * @link		http://wiki.github.com/igrape/igrape/
  */
-class Model {
+class Model extends PhpBURN_Core {
 
 	public $data = array();
 	public $model = '';

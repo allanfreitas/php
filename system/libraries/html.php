@@ -20,6 +20,7 @@
  * @link		http://wiki.github.com/igrape/igrape/
  * @version 	0.1
  */
+
 abstract class html
 {
 	/**
@@ -51,7 +52,8 @@ abstract class html
 	 */
 	function css($file)
 	{
-		$_file = is_file(APPBASE."html/_css/".$file) ? APPBASE."html/_css/".$file : $file;
+		include CONFBASE.'_conf'.EXT;
+		$_file = is_file(APPBASE."html/_css/".$file) ? $conf['base_url'].APPBASE."html/_css/".$file : $file;
 		return "<link rel=\"stylesheet\" href=\"".$_file."\" type=\"text/css\" media=\"screen\" />\n";
 	}
 
@@ -127,7 +129,8 @@ abstract class html
 	 */
 	function img($file, $attrs ='')
 	{
-		$_file = is_file(APPBASE."html/_imagens/".$file) ? APPBASE."html/_imagens/".$file : $file;
+		include CONFBASE.'_conf'.EXT;
+		$_file = is_file(APPBASE."html/_imagens/".$file) ? $conf['base_url'].APPBASE."html/_imagens/".$file : $file;
 		return "<img src=\"".$_file."\" ".$attrs." />\n";
 	}
 	
@@ -146,9 +149,11 @@ abstract class html
 	 * @param $file The image file name
 	 * @param $attrs Atributs <link>
 	 */
-	function favicon($file=NULL, $attrs ='') {
+	function favicon($file=NULL, $attrs ='')
+	{
+		include CONFBASE.'_conf'.EXT;
 		$file = !$file ? "favicon.ico" : $file;
-		$_file = is_file(APPBASE."html/_imagens/".$file) ? APPBASE."html/_imagens/".$file : $file;
+		$_file = is_file(APPBASE."html/_imagens/".$file) ? $conf['base_url'].APPBASE."html/_imagens/".$file : $file;
 		return "<link href=\"".$_file."\" rel=\"icon\" ".$attrs." />\n";
 	}
 	
@@ -183,7 +188,8 @@ abstract class html
 	 */
 	function js($file)
 	{
-		$_file = is_file(APPBASE."html/_js/".$file) ? APPBASE."html/_js/".$file : $file;
+		include CONFBASE.'_conf'.EXT;
+		$_file = is_file(APPBASE."html/_js/".$file) ? $conf['base_url'].APPBASE."html/_js/".$file : $file;
 		return "<script type=\"text/javascript\" src=\"".$_file."\"></script>\n";
 	}
 	

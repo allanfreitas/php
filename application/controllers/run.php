@@ -1,5 +1,8 @@
 <?php
 class RunController extends AppController {
+	
+	public $test = array();
+	
 	function __construct()
 	{
 	}

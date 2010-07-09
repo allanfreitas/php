@@ -2,7 +2,7 @@
 	<div class="ok_tt left"></div>
 	<div class="typer">
 		<h1>Run Coder, Run!</h1>
-		<h3>O iGrape já está funcionando</h3>
+		<h3>O iGrape PHP já está funcionando</h3>
 	</div>
 	<div class="clear"></div>
 </div>

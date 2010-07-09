@@ -38,12 +38,6 @@ define("OS",		"lin");
 |-------------------------------------------------------------
 | iGrape folders 
 |-------------------------------------------------------------
-|
-| win = Windows
-| lin = Linux
-| bsd = BSD
-| osx = Mac OS X
-|
 */
 define("SYS",				"system");
 define("APP",				"application");

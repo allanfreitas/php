@@ -27,7 +27,7 @@
 	* ---------------------------------------------------------------
 	*/
 	global $conf;
-	$conf['base_url'] 			= "http://localhost/igrape";
+	$conf['base_url'] 			= "http://localhost/igrape/";
 	$conf['index_controllers']	= "run";
 	$conf['index_function']		= "index";
 	$conf['index_page']			= $conf['index_controllers'].DS.$conf['index_function'];
@@ -47,6 +47,5 @@
 	*/
 	$conf['ig_developer']	= TRUE;
 	$conf['ig_parser']		= FALSE;
-	
-	include CONFBASE."database".EXT;
+	$conf['phpburn']		= TRUE;
 ?>
