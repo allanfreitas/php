@@ -367,7 +367,7 @@ abstract class PhpBURN_Core implements IPhpBurn {
 	 * @param String $operator
 	 */
 	public function joinInner($tableName, $fieldLeft = null, $fieldRight = null, $tableRight = null, $operator = '=') {
-		return $this->join($tableName, $fieldLeft, $fieldRight, $operator,'INNTER JOIN', $tableRight);
+		return $this->join($tableName, $fieldLeft, $fieldRight, $operator,'INNER JOIN', $tableRight);
 	}
 
 	/**
