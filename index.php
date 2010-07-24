@@ -69,24 +69,7 @@ define('SYSROOT',			PATH.DS.SYSBASE);
 define('APPROOT',			PATH.DS.APPBASE);
 define('CONFROOT',			APPROOT.'config'.DS);
 define('COREROOT',			PATH.DS.COREPATH);
-define('CGI',				1);
-
-if(defined('CGI'))
-{
-	$cmd = @substr($_SERVER['argv'][0],1);
-	define('SCRIPT_NAME', '?');
-}else
-{
-	$cmd = @substr($_SERVER['PATH_INFO'],1);
-	define('SCRIPT_NAME', DS);
-}
-
-$sn = dirname($_SERVER['SCRIPT_NAME']);
-if($sn != "/") $sn .= DS;
-define('WEBROOT',				$sn);
-define('LOGOUT_TRIGGER',		"logout");
-
-
+define('CGI',				TRUE);
 
 require_once COREFILE;
 

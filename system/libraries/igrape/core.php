@@ -39,6 +39,27 @@ require COREROOT."common".EXT;
 include CONFBASE.'_conf'.EXT;
 if(!isset($conf)) exit("You must configure the file _conf".EXT);
 
+if(defined('CGI'))
+{
+	$cmd = @substr($_SERVER['argv'][0],1);
+	if($conf['friendly_url'])
+		define('SCRIPT_NAME', '');
+	else
+		define('SCRIPT_NAME', '?');
+}else
+{
+	$cmd = @substr($_SERVER['PATH_INFO'],1);
+	define('SCRIPT_NAME', DS);
+}
+
+$sn = dirname($_SERVER['SCRIPT_NAME']);
+if(!$conf['friendly_url'])
+{
+	if($sn != "/") $sn .= DS;
+}
+define('WEBROOT',				$sn);
+define('LOGOUT_TRIGGER',		$conf['logout_tringger']);
+
 if($conf['ig_developer'])
 {
 	error_reporting(E_ALL);

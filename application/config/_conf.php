@@ -28,6 +28,7 @@
 	$conf['date_now']			= date("Y-m-d");
 	$conf['d_all_now']			= $conf['date_now']." ".$conf['time_now'];
 	$conf['user_abort']			= TRUE;
+	$conf['logout_tringger']	= "logout";
 	
 	/**
 	* ---------------------------------------------------------------
@@ -36,6 +37,7 @@
 	*/
 	$conf['ig_developer']	= TRUE;
 	$conf['ig_parser']		= FALSE;
+	$conf['friendly_url']	= TRUE;
 	$conf['phpburn']		= TRUE;
 	$conf['phpburn_debug']	= TRUE;
 	
