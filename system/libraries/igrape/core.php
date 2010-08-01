@@ -139,7 +139,7 @@ class iGrape {
 		{
 			unset($this);
 			session_destroy();
-			reload(DS);
+			redirect(DS);
 		}
 		
 		// Instantiate the model
