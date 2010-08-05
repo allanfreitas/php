@@ -155,7 +155,7 @@ class PhpBURN_Message {
 				//@chmod($fileName, 0755);
   			break;
   			default:
-  				print $message = call_user_func(array($messageClass,'lazyTranslate'),$message);
+  				//print $message = call_user_func(array($messageClass,'lazyTranslate'),$message);
   			break;
   		}
   		
