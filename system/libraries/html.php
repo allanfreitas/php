@@ -66,19 +66,22 @@ abstract class html
 	function table($array,$style=NULL)
 	{
 		if($style){
-			foreach($style AS $attr=>$value){
-				//echo $attr." - ".$value."<br />";
-			}
+			$_style = "";
+			foreach($style AS $attr=>$value)
+				$_style .=  $attr."='".$value."'";
 		}
 		$c = 1;
-		foreach($array AS $__colum => $__values)
-		{
+		foreach($array AS $__colum => $__values){
+			
 			if(!is_array($__values))
 				error("Values not is array!");
 			else
 				$_SESSION["iGrape"]["error"]=NULL;
+			
 			if($_SESSION["iGrape"]["error"] == 1)
 				break;
+				
+			//$__tr = count($__values);
 			$__th[$c] = $__colum;
 				$v = 1;
 				foreach($__values AS $_values){
@@ -93,7 +96,7 @@ abstract class html
 		$__tr = $vMax-1;
 		
 		## CREATE TABLE
-		$return = "<table id=\"".@$style["id"]."\" class=\"".@$style["class"]."\">\n";
+		$return = "<table ".@$_style." >\n";
 			## TITLE TABLE
 			$return .= "<tr>";
 			for($y=1;$y<=$__td;$y++){
@@ -120,7 +123,6 @@ abstract class html
 		
 		return $return;
 	}
-	
 	/**
 	 * Inserts an image tag (<img>)
 	 * @return
