@@ -192,7 +192,7 @@ abstract class html
 	{
 		include CONFBASE.'_conf'.EXT;
 		$_file = is_file(APPBASE."html/_js/".$file) ? $conf['base_url'].APPBASE."html/_js/".$file : $file;
-		return "<script type=\"text/javascript\" src=\"".$_file."\"></script>\n";
+		return "<script type=\"text/javascript\" src=\"".$_file."?".date("YmdHis")."\"></script>\n";
 	}
 	
 	/**
