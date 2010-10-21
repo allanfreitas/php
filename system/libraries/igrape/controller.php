@@ -35,8 +35,8 @@ class Controller {
 	public $parser = array();
 
 	public function __construct()
-    {
-    }
+	{
+	}
 
 	public function missing()
 	{
@@ -52,14 +52,17 @@ class Controller {
 		if(!$_action)
 			$_action = $this->action;
 
-		$_view = APPBASE.'views'.DS.$this->name.DS.$_action.EXT;
+		$_view = APPBASE.'views'.DS.$this->name.DS.$_action;
 		
-		if(!is_file($_view))
+		if(!is_file($_view.EXT)&&!is_file($_view.EXTPL))
 		{
 			$this->action = $_action;
 			iGrape::missingView($this);
 		}else
+		{
+			$_view = is_file($_view.EXT)?$_view.EXT:$_view.EXTPL;
 			iGrape::renderFile($_view, $this->layout, $this->data);
+		}
 		AppController::after();
 	}
 
@@ -71,7 +74,7 @@ class Controller {
 	public function __isset($name)
 	{
 		return isset($this->data[$name]);
-    }
+	}
 	
 	public function __unset($name)
 	{
