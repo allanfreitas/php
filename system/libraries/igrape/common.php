@@ -21,14 +21,13 @@
  * @link		http://wiki.github.com/igrape/igrape/
  */
 
+include CONFBASE.'_conf'.EXT;
+if(!isset($conf)) exit("You must configure the file _conf".EXT);
+
 /**
  * Auto loads a file from system/libraries/
  * @return
  */
-
-include CONFBASE.'_conf'.EXT;
-if(!isset($conf)) exit("You must configure the file _conf".EXT);
-
 function __autoload($class) {
 	if(file_exists(LIB.$class.EXT))
 	{
@@ -41,6 +40,8 @@ function __autoload($class) {
 			{
 				if(file_exists(LIB.$class.DS.$class.EXT))
 					require LIB.$class.DS.$class.EXT;
+				elseif(file_exists(LIB.$class.DS."boot".EXT))
+					require LIB.$class.DS."boot".EXT;
 				else
 				{
 					iGrape::invalidModel();
@@ -61,15 +62,15 @@ function load($class)
 	static $objects			= array();
 	static $_class			= array();
 	static $count			= NULL;
-	$path					= NULL;
+	$path				= NULL;
 	
 	if(isset($objects[$class]))
 		return $objects[$class];
 	else
 		$objects[$class] = $class;
 	
-	$_class					= explode(".",$class);
-	$count					= count($_class)-1;
+	$_class				= explode(".",$class);
+	$count				= count($_class)-1;
 	foreach($_class AS $n=>$value)
 	{
 		if($count!=$n)
